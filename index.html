@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <title>ConfirmPro</title>
+    <style>
+      body {
+        background-color: #f3f3f3;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 50rem;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #444;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .checklist-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .checklist-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .checklist-item input[type="checkbox"] {
+        margin-right: 10px;
+      }
+
+      .checklist-item label {
+        flex-grow: 1;
+        color: #444;
+      }
+
+      .delete-button {
+        background-color: transparent;
+        color: #ff5f5f;
+        border: none;
+        padding: 0;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .delete-button:hover {
+        color: #ff1a1a;
+      }
+
+      .add-form {
+        display: flex;
+        margin-top: 20px;
+      }
+
+      .add-input {
+        flex-grow: 1;
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+      }
+
+      .add-button {
+        background-color: #cbcbcb;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 15px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .add-button:hover {
+        background-color: #217dbb;
+      }
+
+      .progress-bar {
+        height: 20px;
+        background-color: #e8e8e8;
+        border-radius: 5px;
+        margin-top: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar-fill {
+        height: 100%;
+        width: 0;
+        border-radius: 5px;
+        transition: width 0.5s;
+      }
+      @media screen and (max-width: 767px) {
+        body {
+          padding: 10px;
+          background-color: red;
+        }
+
+        .time-date-box {
+          top: 10px;
+          right: 10px;
+          font-size: 12px;
+          padding: 3px 8px;
+        }
+
+        .add-input {
+          padding: 5px;
+          font-size: 14px;
+        }
+
+        .add-button {
+          padding: 5px 10px;
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          style="fill: rgba(0, 0, 0, 1)"
+          class="svgg"
+        >
+          <path
+            d="M7 5c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2H7zm0 12V7h10l.002 10H7z"
+          ></path>
+          <path
+            d="M10.996 12.556 9.7 11.285l-1.4 1.43 2.704 2.647 4.699-4.651-1.406-1.422z"
+          ></path>
+        </svg>
+        ConfirmPro
+      </h1>
+      <ul id="checklist">
+        <!-- <li class="checklist-item">
+          <input type="checkbox" id="item1" />
+          <label for="item1">Change of character ?</label>
+          <button class="delete-button" onclick="deleteItem(this)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              style="fill: rgba(0, 0, 0, 1)"
+            >
+              <path
+                d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z"
+              ></path>
+            </svg>
+          </button>
+        </li>
+        <li class="checklist-item">
+          <input type="checkbox" id="item2" />
+          <label for="item2">Is the trade have 1:2 rr ratio?</label>
+          <button class="delete-button" onclick="deleteItem(this)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              style="fill: rgba(0, 0, 0, 1)"
+            >
+              <path
+                d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z"
+              ></path>
+            </svg>
+          </button>
+        </li> -->
+      </ul>
+
+      <form class="add-form" onsubmit="addItem(event)">
+        <input
+          type="text"
+          id="newItem"
+          class="add-input"
+          placeholder="Enter your trade checklist"
+          required
+        />
+        <button type="submit" class="add-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            style="fill: rgba(0, 0, 0, 1)"
+          >
+            <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4z"></path>
+            <path
+              d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"
+            ></path>
+          </svg>
+        </button>
+      </form>
+
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progress"></div>
+      </div>
+      <a href="github.com/dipednra-mule/">@</a>
+    </div>
+
+    <script>
+      const checklist = document.getElementById("checklist");
+      const progress = document.getElementById("progress");
+
+      loadChecklist();
+
+      function loadChecklist() {
+        const savedItems =
+          JSON.parse(localStorage.getItem("checklistItems")) || [];
+        savedItems.forEach((item) => {
+          const listItem = createListItem(item.text, item.checked);
+          checklist.appendChild(listItem);
+        });
+        updateProgressBar();
+      }
+
+      function saveChecklist() {
+        const items = Array.from(checklist.children).map((item) => {
+          const checkbox = item.querySelector('input[type="checkbox"]');
+          return {
+            text: item.querySelector("label").textContent,
+            checked: checkbox.checked,
+          };
+        });
+        localStorage.setItem("checklistItems", JSON.stringify(items));
+      }
+
+      function createListItem(text, checked = false) {
+        const listItem = document.createElement("li");
+        listItem.className = "checklist-item";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = checked;
+        checkbox.addEventListener("change", updateProgressBar);
+
+        const label = document.createElement("label");
+        label.textContent = text;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "delete-button";
+        deleteButton.innerHTML = `
+      <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              style="fill: rgba(0, 0, 0, 1)"
+            >
+              <path
+                d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z"
+              ></path>
+            </svg>`;
+        deleteButton.addEventListener("click", function () {
+          deleteItem(this);
+        });
+
+        listItem.appendChild(checkbox);
+        listItem.appendChild(label);
+        listItem.appendChild(deleteButton);
+
+        return listItem;
+      }
+
+      function deleteItem(button) {
+        const listItem = button.parentElement;
+        listItem.remove();
+        updateProgressBar();
+        saveChecklist();
+      }
+
+      function addItem(event) {
+        event.preventDefault();
+        const input = document.getElementById("newItem");
+        const value = input.value.trim();
+
+        if (value !== "") {
+          const newItem = createListItem(value);
+          checklist.appendChild(newItem);
+          updateProgressBar();
+          saveChecklist();
+          input.value = "";
+        }
+      }
+
+      function updateProgressBar() {
+        const checklistItems = document.querySelectorAll(".checklist-item");
+
+        const completedItems = Array.from(checklistItems).filter(
+          (item) => item.querySelector('input[type="checkbox"]').checked
+        );
+        const progress = document.getElementById("progress");
+        const percentComplete =
+          (completedItems.length / checklistItems.length) * 100;
+        progress.style.width = percentComplete + "%";
+        progress.style.backgroundColor = getProgressColor(percentComplete);
+      }
+
+      function getProgressColor(percentComplete) {
+        if (percentComplete >= 90) {
+          return "green";
+        } else if (percentComplete >= 50) {
+          return "orange";
+        } else {
+          return "red";
+        }
+      }
+    </script>
+  </body>
+</html>
